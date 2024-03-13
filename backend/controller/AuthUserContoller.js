@@ -47,3 +47,5 @@ const signUpUser = async (request, response) => {
     });
   }
 };
+
+module.exports = { signUpUser };
