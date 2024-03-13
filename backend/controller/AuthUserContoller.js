@@ -48,4 +48,41 @@ const signUpUser = async (request, response) => {
   }
 };
 
-module.exports = { signUpUser };
+// signInUser
+const signInUser = async (request, response) => {
+  const { email, password } = request.body;
+  try {
+    // find user
+    const user = await AuthModel.findOne({ email });
+    if (user) {
+      const authUser = await bcrypt.compare(password, user.password);
+      if (authUser) {
+        const token = await jwt.sign(
+          { userId: user._id, email: user.email },
+          process.env.SECRET_KEY,
+          { expiresIn: "24h" }
+        );
+        return response.status(200).json({
+          message: "user found",
+          user: user.email,
+          token: token,
+        });
+      } else {
+        return response.status(401).json({
+          message: "invalid password",
+        });
+      }
+    } else {
+      return response.status(401).json({
+        message: "user not found",
+      });
+    }
+  } catch (error) {
+    return response.status(400).json({
+      message: "error occur",
+      error: error.message,
+    });
+  }
+};
+
+module.exports = { signUpUser, signInUser };
