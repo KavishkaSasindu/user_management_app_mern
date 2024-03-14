@@ -1,9 +1,9 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import UsersNav from "../../components/UsersNav";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import toast from "react-hot-toast";
+import { FaUserPlus } from "react-icons/fa";
 
 const AllUsers = () => {
   const navigate = useNavigate();
@@ -48,8 +48,18 @@ const AllUsers = () => {
 
   return (
     <div>
-      <UsersNav />
-      <div>ALl Users {getData.message} </div>
+      <Link to={"/allUsers"}>All Users</Link>
+
+      <div className="bg-blue-900 rounded-full w-12 h-12 flex justify-center items-center shadow-2xl">
+        <Link to={"create"}>
+          <FaUserPlus
+            size={25}
+            className="text-white text-center flex justify-center items-center w-full h-full"
+          />
+        </Link>
+      </div>
+
+      <Link to={"update"}>Update User</Link>
       <Outlet />
     </div>
   );

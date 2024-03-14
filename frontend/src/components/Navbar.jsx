@@ -47,8 +47,8 @@ const Navbar = () => {
                 <ul className="flex text-md lg:text-xl md:space-x-8 lg:space-x-12 cursor-pointer font-sans">
                   <Link to={"/"}>About Me</Link>
                   <Link to={"/allUsers"}>Users Demo</Link>
-                  <li>Admin Area</li>
-                  <li>How it works</li>
+                  <Link to={"/signIn"}>SignIn</Link>
+                  <Link to={"/signUp"}>SignUp</Link>
                   {isLogged ? (
                     <button className="text-center" onClick={logout}>
                       Logout
@@ -94,8 +94,12 @@ const Navbar = () => {
                   <Link to={"/allUsers"} className="text-center">
                     Users Demo
                   </Link>
-                  <li className="text-center">Admin Area</li>
-                  <li className="text-center">How it works</li>
+                  <Link to={"/signIn"} className="text-center">
+                    SignIn
+                  </Link>
+                  <Link to={"/signUp"} className="text-center">
+                    SignUp
+                  </Link>
                   {isLogged ? (
                     <button className="text-center" onClick={logout}>
                       Logout

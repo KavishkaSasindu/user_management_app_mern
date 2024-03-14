@@ -7,6 +7,7 @@ import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
 import AllUsers from "./pages/users/AllUsers";
 import Create from "./pages/users/Create";
+import UpdateUser from "./pages/users/UpdateUser";
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/allUsers" element={<AllUsers />}>
             <Route path="create" element={<Create />} />
+            <Route path="update" element={<UpdateUser />} />
           </Route>
         </Routes>
       </BrowserRouter>

@@ -10,6 +10,16 @@ router.post(
   crudUserController.createUser
 );
 router.get("/api/user/getData", authMiddleware, crudUserController.getAllUser);
-router.put("/api/user/updateUser/:id", crudUserController.updateUser);
+router.put(
+  "/api/user/updateUser/:id",
+  authMiddleware,
+  crudUserController.updateUser
+);
+router.get("/api/user/getData/:id", authMiddleware, crudUserController.getUser);
+router.delete(
+  "/api/user/deleteUser/:id",
+  authMiddleware,
+  crudUserController.deleteUser
+);
 
 module.exports = router;

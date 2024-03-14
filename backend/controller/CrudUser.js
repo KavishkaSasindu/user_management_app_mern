@@ -77,4 +77,48 @@ const updateUser = async (request, response) => {
   }
 };
 
-module.exports = { createUser, getAllUser, updateUser };
+// findUser
+const getUser = async (request, response) => {
+  const { id } = request.params;
+  try {
+    const findUser = await CrudUser.findById(id);
+    if (findUser) {
+      return response.status(200).json({
+        message: "user found",
+        data: findUser,
+      });
+    } else {
+      return response.status(404).json({
+        message: "no user found",
+      });
+    }
+  } catch (error) {
+    return response.status(400).json({
+      message: "error",
+      error: error.message,
+    });
+  }
+};
+
+// delete user
+const deleteUser = async (request, response) => {
+  const { id } = request.params;
+  try {
+    const deleteUser = await CrudUser.findByIdAndDelete(id, request.body);
+    if (deleteUser) {
+      return response.status(200).json({
+        message: "user deleted",
+      });
+    } else {
+      return response.status(400).json({
+        message: "can not delete user",
+      });
+    }
+  } catch (error) {
+    return response.status(400).json({
+      error: error.message,
+    });
+  }
+};
+
+module.exports = { createUser, getAllUser, updateUser, getUser, deleteUser };

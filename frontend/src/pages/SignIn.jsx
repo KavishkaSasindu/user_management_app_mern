@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 
 const SignIn = () => {
@@ -17,41 +17,51 @@ const SignIn = () => {
 
   const handleData = async (e) => {
     e.preventDefault();
-    try {
-      const response = await fetch("http://localhost:3000/api/user/signIn", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(getData),
+    const token = localStorage.getItem("jwt");
+    if (token) {
+      toast.error("You already logged in", {
+        duration: 3000,
+        position: "top-center",
       });
-
-      const data = await response.json();
-      if (data) {
-        localStorage.setItem("jwt", data.token);
-        console.log(data);
-        toast.success("You Logged In", {
-          duration: 3000,
-          position: "top-right",
+      navigate("/");
+    } else {
+      try {
+        const response = await fetch("http://localhost:3000/api/user/signIn", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(getData),
         });
 
-        navigate("/");
-        location.reload();
-      } else {
-        navigate("/signIn");
-        toast.error("Invalid user", {
+        const data = await response.json();
+        if (data) {
+          localStorage.setItem("jwt", data.token);
+          console.log(data);
+          toast.success("You Logged In", {
+            duration: 3000,
+            position: "top-right",
+          });
+
+          navigate("/");
+          location.reload();
+        } else {
+          navigate("/signIn");
+          toast.error("Invalid user", {
+            duration: 3000,
+            position: "top-right",
+          });
+        }
+      } catch (error) {
+        console.log(error.message);
+        toast.error(`${error.message}`, {
           duration: 3000,
           position: "top-right",
         });
       }
-    } catch (error) {
-      console.log(error.message);
-      toast.error(`${error.message}`, {
-        duration: 3000,
-        position: "top-right",
-      });
     }
   };
+
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
