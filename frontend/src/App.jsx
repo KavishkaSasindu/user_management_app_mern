@@ -6,6 +6,7 @@ import SignIn from "./pages/SignIn";
 import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
 import AllUsers from "./pages/users/AllUsers";
+import Create from "./pages/users/Create";
 
 const App = () => {
   return (
@@ -16,7 +17,9 @@ const App = () => {
           <Route path="/signUp" element={<SignUp />} />
           <Route path="/signIn" element={<SignIn />} />
           <Route path="/" element={<Home />} />
-          <Route path="/allUsers" element={<AllUsers />} />
+          <Route path="/allUsers" element={<AllUsers />}>
+            <Route path="create" element={<Create />} />
+          </Route>
         </Routes>
       </BrowserRouter>
       <Toaster />

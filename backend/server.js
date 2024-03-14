@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const authRouter = require("./routes/UserAuthRoutes");
+const crudUser = require("./routes/CrudUserRoutes");
 
 require("dotenv").config();
 
@@ -34,3 +35,4 @@ mongoose
 
 // routes
 app.use(authRouter);
+app.use(crudUser);
