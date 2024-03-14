@@ -5,7 +5,7 @@ require("dotenv").config();
 
 // signUp form
 const signUpUser = async (request, response) => {
-  const { username, password, email } = request.body;
+  const { username, address, password, email } = request.body;
   try {
     // exist user
     const existUser = await AuthModel.findOne({ email });
@@ -19,12 +19,17 @@ const signUpUser = async (request, response) => {
       const hashedPassword = await bcrypt.hash(password, salt);
       const newUser = await AuthModel.create({
         username,
+        address,
         email,
         password: hashedPassword,
       });
       if (newUser) {
         const token = await jwt.sign(
-          { userId: newUser._id, userEmail: newUser.email },
+          {
+            userId: newUser._id,
+            userEmail: newUser.email,
+            userAddress: newUser.address,
+          },
           process.env.SECRET_KEY,
           { expiresIn: "24h" }
         );
