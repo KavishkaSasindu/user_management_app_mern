@@ -4,6 +4,11 @@ const authMiddleware = require("../middleware/AuthMiddleware");
 
 const router = express.Router();
 
-router.get("/api/user/getData", authMiddleware, crudUserController.getUserData);
+router.post(
+  "/api/user/postData",
+  authMiddleware,
+  crudUserController.createUser
+);
+router.get("/api/user/getData", crudUserController.getAllUser);
 
 module.exports = router;

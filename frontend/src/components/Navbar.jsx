@@ -1,15 +1,33 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { MdClose } from "react-icons/md";
 import { motion } from "framer-motion";
 
 const Navbar = () => {
   const [navItem, setNavItem] = useState(false);
+  const [isLogged, setIsLogged] = useState(false);
+
+  const navigate = useNavigate();
 
   const toggle = () => {
     setNavItem(!navItem);
+  };
+
+  useEffect(() => {
+    const token = localStorage.getItem("jwt");
+    if (token) {
+      setIsLogged(true);
+    } else {
+      setIsLogged(false);
+    }
+  }, []);
+
+  const logout = () => {
+    localStorage.removeItem("jwt");
+    location.reload();
+    navigate("/");
   };
   return (
     <>
@@ -31,6 +49,13 @@ const Navbar = () => {
                   <Link to={"/allUsers"}>Users Demo</Link>
                   <li>Admin Area</li>
                   <li>How it works</li>
+                  {isLogged ? (
+                    <button className="text-center" onClick={logout}>
+                      Logout
+                    </button>
+                  ) : (
+                    ""
+                  )}
                 </ul>
               </div>
             </div>
@@ -48,7 +73,7 @@ const Navbar = () => {
       </div>
       {navItem ? (
         <motion.div
-          className="w-full h-[500px] shadow-md flex justify-start items-center bg-blue-900 text-white"
+          className="w-full h-[500px] shadow-md flex justify-start items-center bg-blue-900 text-white md:hidden"
           initial={{
             y: -400,
           }}
@@ -71,6 +96,13 @@ const Navbar = () => {
                   </Link>
                   <li className="text-center">Admin Area</li>
                   <li className="text-center">How it works</li>
+                  {isLogged ? (
+                    <button className="text-center" onClick={logout}>
+                      Logout
+                    </button>
+                  ) : (
+                    ""
+                  )}
                 </ul>
               </div>
             </div>

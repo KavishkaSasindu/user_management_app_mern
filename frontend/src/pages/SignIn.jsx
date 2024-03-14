@@ -34,7 +34,9 @@ const SignIn = () => {
           duration: 3000,
           position: "top-right",
         });
+
         navigate("/");
+        location.reload();
       } else {
         navigate("/signIn");
         toast.error("Invalid user", {
