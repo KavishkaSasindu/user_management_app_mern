@@ -9,6 +9,7 @@ router.post(
   authMiddleware,
   crudUserController.createUser
 );
-router.get("/api/user/getData", crudUserController.getAllUser);
+router.get("/api/user/getData", authMiddleware, crudUserController.getAllUser);
+router.put("/api/user/updateUser/:id", crudUserController.updateUser);
 
 module.exports = router;
