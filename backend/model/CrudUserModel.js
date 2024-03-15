@@ -1,6 +1,11 @@
 const mongoose = require("mongoose");
 
 const CrudUserModel = new mongoose.Schema({
+  userId: {
+    type: Number,
+    required: true,
+    unique: true,
+  },
   firstName: {
     type: String,
     required: true,

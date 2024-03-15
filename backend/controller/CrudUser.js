@@ -1,7 +1,9 @@
 const CrudUser = require("../model/CrudUserModel");
+const mongoose = require("mongoose");
 
 const createUser = async (request, response) => {
-  const { firstName, lastName, gender, contact, address, email } = request.body;
+  const { userId, firstName, lastName, gender, contact, address, email } =
+    request.body;
   try {
     const existUser = await CrudUser.findOne({ email });
     if (existUser) {
@@ -10,6 +12,7 @@ const createUser = async (request, response) => {
       });
     }
     const user = await CrudUser.create({
+      userId,
       firstName,
       lastName,
       gender,
@@ -79,9 +82,9 @@ const updateUser = async (request, response) => {
 
 // findUser
 const getUser = async (request, response) => {
-  const { id } = request.params;
+  const { userId } = request.params;
   try {
-    const findUser = await CrudUser.findById(id);
+    const findUser = await CrudUser.findOne({ userId });
     if (findUser) {
       return response.status(200).json({
         message: "user found",

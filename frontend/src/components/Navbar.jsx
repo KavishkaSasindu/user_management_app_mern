@@ -48,8 +48,6 @@ const Navbar = () => {
                   <ul className="flex text-md lg:text-xl md:space-x-8 lg:space-x-12 cursor-pointer font-sans">
                     <Link to={"/"}>About Me</Link>
                     <Link to={"/allUsers"}>Users Demo</Link>
-                    <Link to={"/signIn"}>SignIn</Link>
-                    <Link to={"/signUp"}>SignUp</Link>
 
                     <button className="text-center" onClick={logout}>
                       Logout

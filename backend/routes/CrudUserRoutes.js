@@ -11,13 +11,13 @@ router.post(
 );
 router.get("/api/user/getData", authMiddleware, crudUserController.getAllUser);
 router.put(
-  "/api/user/updateUser/:id",
+  "/api/user/updateUser/:userId",
   authMiddleware,
   crudUserController.updateUser
 );
-router.get("/api/user/getData/:id", authMiddleware, crudUserController.getUser);
+router.get("/api/user/getData/:userId", crudUserController.getUser);
 router.delete(
-  "/api/user/deleteUser/:id",
+  "/api/user/deleteUser/:userId",
   authMiddleware,
   crudUserController.deleteUser
 );
