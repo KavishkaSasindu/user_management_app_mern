@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.post(
   "/api/user/postData",
-  authMiddleware,
+  // authMiddleware,
   crudUserController.createUser
 );
 router.get("/api/user/getData", authMiddleware, crudUserController.getAllUser);

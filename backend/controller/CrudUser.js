@@ -20,7 +20,7 @@ const createUser = async (request, response) => {
     if (user) {
       return response.status(201).json({
         message: "user created success",
-        data: user,
+        users: user,
       });
     } else {
       return response.status(400).json({
@@ -42,7 +42,7 @@ const getAllUser = async (request, response) => {
     if (users) {
       return response.status(200).json({
         message: "fetching all data",
-        data: users,
+        user: users,
       });
     } else {
       return response.status(404).json({
